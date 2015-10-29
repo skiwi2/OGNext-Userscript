@@ -1,8 +1,8 @@
 // ==UserScript==
 // @name                OLog
-// @namespace	        http://www.olog.com/
-// @description	        OLog Userscript
-// @include	            http://s135-en.ogame.gameforge.com/game/*
+// @namespace           http://www.olog.com/
+// @description         OLog Userscript
+// @include             http://s135-en.ogame.gameforge.com/game/*
 // ==/UserScript==
 
 var page = getQueryVariable("page");
