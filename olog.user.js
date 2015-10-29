@@ -23,9 +23,33 @@ if (page === "messages") {
 }
 
 function processMessageNodes(nodes) {
+    var srKeys = [];    //spy report
+    var crKeys = [];    //combat report
+    var rrKeys = [];    //recycle report
+    var mrKeys = [];    //missile report
     for (var node of nodes) {
-        console.log(node);
+        var apiElement = node.querySelector(".icon_apikey");
+        if (apiElement !== null) {
+            var key = node.querySelector(".icon_apikey").title;
+            var type = key.substring(0, 2);
+            if (type === "sr") {
+                srKeys.push(key);
+            }
+            else if (type === "cr") {
+                crKeys.push(key);
+            }
+            else if (type === "rr") {
+                rrKeys.push(key);
+            }
+            else if (type === "mr") {
+                mrKeys.push(key);
+            }
+        }
     }
+    console.log(srKeys);
+    console.log(crKeys);
+    console.log(rrKeys);
+    console.log(mrKeys);
 }
 
 function getQueryVariable(variable) {
