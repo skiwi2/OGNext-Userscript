@@ -12,9 +12,8 @@ if (page === "messages") {
         mutations.forEach(function(mutation) {
             for (var node of mutation.addedNodes) {
                 if (node.localName === "ul" && node.classList.contains("tab_inner")) {
-                    for (var messageNode of node.querySelectorAll(".msg")) {
-                        processMessageNode(messageNode);
-                    }
+                    //send all messages at once such that all SR keys can be sent at once to the server
+                    processMessageNodes(node.querySelectorAll(".msg"));
                 }
             }
         });
@@ -23,8 +22,10 @@ if (page === "messages") {
     observer.observe(document, { childList: true, subtree: true });
 }
 
-function processMessageNode(node) {
-    console.log(node);
+function processMessageNodes(nodes) {
+    for (var node of nodes) {
+        console.log(node);
+    }
 }
 
 function getQueryVariable(variable) {
