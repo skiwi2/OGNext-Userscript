@@ -24,42 +24,27 @@ if (page === "messages") {
 }
 
 function processMessageNodes(nodes) {
-    var srKeys = [];    //spy report
-    var crKeys = [];    //combat report
-    var rrKeys = [];    //recycle report
-    var mrKeys = [];    //missile report
+    var rKeys = {
+        srKeys: [],     //spy report
+        crKeys: [],     //combat report
+        rrKeys: [],     //recycle report
+        mrKeys: []      //missile report
+    }
     for (var node of nodes) {
         var apiElement = node.querySelector(".icon_apikey");
         if (apiElement !== null) {
             var key = node.querySelector(".icon_apikey").title;
             var type = key.substring(0, 2);
-            if (type === "sr") {
-                srKeys.push(key);
-            }
-            else if (type === "cr") {
-                crKeys.push(key);
-            }
-            else if (type === "rr") {
-                rrKeys.push(key);
-            }
-            else if (type === "mr") {
-                mrKeys.push(key);
+            if(rKeys.hasOwnChild(type)) {
+                rKeys[type].push(key);
             }
         }
     }
-    console.log(srKeys);
-    console.log(crKeys);
-    console.log(rrKeys);
-    console.log(mrKeys);
+    console.log(rKeys.srKeys, rKeys.crKeys, rKeys.rrKeys, rKeys.mrKeys);
     
     postData({
         endpoint: "keys",
-        data: {
-            srKeys: srKeys,
-            crKeys: crKeys,
-            rrKeys: rrKeys,
-            mrKeys: mrKeys
-        }
+        data: rKeys
     });
 }
 
