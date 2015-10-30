@@ -68,12 +68,8 @@ function postData(object) {
 }
 
 function addPlayerData(data) {
-    data["server"] = getWindowVariable("constants.language");
-    data["universe"] = getWindowVariable("constants.name");
-    data["playerId"] = getWindowVariable("playerId");
-    data["playerName"] = getWindowVariable("playerName");
-}
-
-function getWindowVariable(name) {
-    return window.eval(name);
+    data["server"] = window["constants.language"];
+    data["universe"] = window["constants.name"];
+    data["playerId"] = window["playerId"];
+    data["playerName"] = window["playerName"];
 }
