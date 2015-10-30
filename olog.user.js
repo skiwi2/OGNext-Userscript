@@ -6,7 +6,9 @@
 // @grant               GM_xmlhttpRequest
 // ==/UserScript==
 
-var page = getWindowVariable("currentPage");
+"use strict";
+
+var page = window.currentPage;
 
 if (page === "messages") {
     var observer = new MutationObserver(function(mutations) {
@@ -29,7 +31,7 @@ function processMessageNodes(nodes) {
         crKeys: [],     //combat report
         rrKeys: [],     //recycle report
         mrKeys: []      //missile report
-    }
+    };
     for (var node of nodes) {
         var apiElement = node.querySelector(".icon_apikey");
         if (apiElement !== null) {
@@ -68,8 +70,8 @@ function postData(object) {
 }
 
 function addPlayerData(data) {
-    data["server"] = window["constants.language"];
-    data["universe"] = window["constants.name"];
-    data["playerId"] = window["playerId"];
-    data["playerName"] = window["playerName"];
+    data.server = window["constants.language"];
+    data.universe = window["constants.name"];
+    data.playerId = window["playerId"];
+    data.playerName = window["playerName"];
 }
