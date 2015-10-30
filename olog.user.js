@@ -3,6 +3,7 @@
 // @namespace           http://www.olog.com/
 // @description         OLog Userscript
 // @include             http://s135-en.ogame.gameforge.com/game/*
+// @grant               GM_xmlhttpRequest
 // ==/UserScript==
 
 var page = getQueryVariable("page");
@@ -50,6 +51,46 @@ function processMessageNodes(nodes) {
     console.log(crKeys);
     console.log(rrKeys);
     console.log(mrKeys);
+    
+    postData({
+        endpoint: "keys",
+        data: {
+            srKeys: srKeys,
+            crKeys: crKeys,
+            rrKeys: rrKeys,
+            mrKeys: mrKeys
+        }
+    });
+}
+
+function postData(object) {
+    addPlayerData(object.data);
+    console.log(JSON.stringify(object.data));
+    GM_xmlhttpRequest({
+        method: "POST",
+        url: "http://localhost/api/" + object.endpoint,
+        data: JSON.stringify(object.data),
+        headers: {
+            "Content-Type": "application/json"
+        },
+        onload: function(response) {
+            console.log("load");
+        },
+        onerror: function(response) {
+            console.log("error");
+        }
+    });
+}
+
+function addPlayerData(data) {
+    data["server"] = getWindowVariable("constants.language");
+    data["universe"] = getWindowVariable("constants.name");
+    data["playerId"] = getWindowVariable("playerId");
+    data["playerName"] = getWindowVariable("playerName");
+}
+
+function getWindowVariable(name) {
+    return window.eval(name);
 }
 
 function getQueryVariable(variable) {
