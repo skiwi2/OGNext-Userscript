@@ -6,7 +6,7 @@
 // @grant               GM_xmlhttpRequest
 // ==/UserScript==
 
-var page = getQueryVariable("page");
+var page = getWindowVariable("currentPage");
 
 if (page === "messages") {
     var observer = new MutationObserver(function(mutations) {
@@ -91,16 +91,4 @@ function addPlayerData(data) {
 
 function getWindowVariable(name) {
     return window.eval(name);
-}
-
-function getQueryVariable(variable) {
-    var query = window.location.search.substring(1);
-    var vars = query.split('&');
-    for (var i = 0; i < vars.length; i++) {
-        var pair = vars[i].split('=');
-        if (decodeURIComponent(pair[0]) == variable) {
-            return decodeURIComponent(pair[1]);
-        }
-    }
-    console.log('Query variable %s not found', variable);
 }
