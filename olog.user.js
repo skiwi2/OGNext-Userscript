@@ -50,7 +50,9 @@ function processMessageNodes(nodes) {
     
     postData({
         endpoint: "keys",
-        data: reportKeys
+        data: {
+            reportKeys: reportKeys
+        }
     });
 }
 
