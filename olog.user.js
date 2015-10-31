@@ -6,12 +6,15 @@
 // @grant               GM_xmlhttpRequest
 // ==/UserScript==
 
+"use strict";
+
 var page = getWindowVariable("currentPage");
 
 if (page === "messages") {
     var observer = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
-            for (var node of mutation.addedNodes) {
+            for(var i = 0; i < mutation.addedNodes.length; i++) {
+                var node = mutation.addedNodes[i];
                 if (node.localName === "ul" && node.classList.contains("tab_inner")) {
                     //send all messages at once such that all SR keys can be sent at once to the server
                     processMessageNodes(node.querySelectorAll(".msg"));
@@ -24,42 +27,28 @@ if (page === "messages") {
 }
 
 function processMessageNodes(nodes) {
-    var srKeys = [];    //spy report
-    var crKeys = [];    //combat report
-    var rrKeys = [];    //recycle report
-    var mrKeys = [];    //missile report
-    for (var node of nodes) {
+    var rKeys = {
+        srKeys: [],     //spy report
+        crKeys: [],     //combat report
+        rrKeys: [],     //recycle report
+        mrKeys: []      //missile report
+    };
+    for(var i = 0; i < nodes.length; i++) {
+        var node = nodes[i];
         var apiElement = node.querySelector(".icon_apikey");
         if (apiElement !== null) {
             var key = node.querySelector(".icon_apikey").title;
             var type = key.substring(0, 2);
-            if (type === "sr") {
-                srKeys.push(key);
-            }
-            else if (type === "cr") {
-                crKeys.push(key);
-            }
-            else if (type === "rr") {
-                rrKeys.push(key);
-            }
-            else if (type === "mr") {
-                mrKeys.push(key);
+            if(rKeys.hasOwnChild(type)) {
+                rKeys[type].push(key);
             }
         }
     }
-    console.log(srKeys);
-    console.log(crKeys);
-    console.log(rrKeys);
-    console.log(mrKeys);
+    console.log(rKeys.srKeys, rKeys.crKeys, rKeys.rrKeys, rKeys.mrKeys);
     
     postData({
         endpoint: "keys",
-        data: {
-            srKeys: srKeys,
-            crKeys: crKeys,
-            rrKeys: rrKeys,
-            mrKeys: mrKeys
-        }
+        data: rKeys
     });
 }
 
@@ -83,12 +72,20 @@ function postData(object) {
 }
 
 function addPlayerData(data) {
-    data["server"] = getWindowVariable("constants.language");
-    data["universe"] = getWindowVariable("constants.name");
-    data["playerId"] = getWindowVariable("playerId");
-    data["playerName"] = getWindowVariable("playerName");
+    data.server = getWindowVariable("constants.language");
+    data.universe = getWindowVariable("constants.name");
+    data.playerId = getWindowVariable("playerId");
+    data.playerName = getWindowVariable("playerName");
 }
 
+/**
+ * Returns a global variable.
+ *
+ * Needed because a @grant other than none puts the script
+ * in a separate scope.
+ *
+ * @param {string} name The name of the global variable.
+ */
 function getWindowVariable(name) {
     return window.eval(name);
 }
