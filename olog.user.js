@@ -8,7 +8,7 @@
 
 "use strict";
 
-var page = window.currentPage;
+var page = getWindowVariable("currentPage");
 
 if (page === "messages") {
     var observer = new MutationObserver(function(mutations) {
@@ -70,8 +70,20 @@ function postData(object) {
 }
 
 function addPlayerData(data) {
-    data.server = window["constants.language"];
-    data.universe = window["constants.name"];
-    data.playerId = window["playerId"];
-    data.playerName = window["playerName"];
+    data.server = getWindowVariable("constants.language");
+    data.universe = getWindowVariable("constants.name");
+    data.playerId = getWindowVariable("playerId");
+    data.playerName = getWindowVariable("playerName");
+}
+
+/**
+ * Returns a global variable.
+ *
+ * Needed because a @grant other than none puts the script
+ * in a separate scope.
+ *
+ * @param {string} name The name of the global variable.
+ */
+function getWindowVariable(name) {
+    return window.eval(name);
 }
