@@ -68,7 +68,7 @@ function postData(object) {
     console.log(JSON.stringify(object.data));
     GM_xmlhttpRequest({
         method: "POST",
-        url: "http://localhost/api/" + object.endpoint,
+        url: "http://localhost:8080/api/userscript/" + object.endpoint,
         data: JSON.stringify(object.data),
         headers: {
             "Content-Type": "application/json"
