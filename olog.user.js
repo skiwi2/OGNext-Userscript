@@ -13,7 +13,8 @@ var page = getWindowVariable("currentPage");
 if (page === "messages") {
     var observer = new MutationObserver(function(mutations) {
         mutations.forEach(function(mutation) {
-            for (var node of mutation.addedNodes) {
+            for(var i = 0; i < mutation.addedNodes.length; i++) {
+                var node = mutation.addedNodes[i];
                 if (node.localName === "ul" && node.classList.contains("tab_inner")) {
                     //send all messages at once such that all SR keys can be sent at once to the server
                     processMessageNodes(node.querySelectorAll(".msg"));
@@ -32,7 +33,8 @@ function processMessageNodes(nodes) {
         rrKeys: [],     //recycle report
         mrKeys: []      //missile report
     };
-    for (var node of nodes) {
+    for(var i = 0; i < nodes.length; i++) {
+        var node = nodes[i];
         var apiElement = node.querySelector(".icon_apikey");
         if (apiElement !== null) {
             var key = node.querySelector(".icon_apikey").title;
