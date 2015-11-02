@@ -2,7 +2,7 @@
 // @name                OLog
 // @namespace           http://www.olog.com/
 // @description         OLog Userscript
-// @include             http://s135-en.ogame.gameforge.com/game/*
+// @include             http://s*-*.ogame.gameforge.com/game/*
 // @grant               GM_xmlhttpRequest
 // ==/UserScript==
 
