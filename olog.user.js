@@ -8,6 +8,33 @@
 
 "use strict";
 
+var menuTable = document.getElementById("menuTable");
+
+var oLogLi = document.createElement("li");
+oLogLi.onfocus = function(c) {
+    if (b(c.target).closest(".dropdown").length == 0) {
+        b(".currentlySelected a").removeClass("hover");
+        b(".currentlySelected").removeClass("focus");
+    }
+}
+
+var oLogAnchor = document.createElement("a");
+oLogAnchor.className = "menubutton"
+oLogAnchor.href = "#"
+oLogAnchor.onclick = function() {
+    alert("OLog Settings");
+}
+
+var oLogSpan = document.createElement("span");
+oLogSpan.className = "textlabel"
+
+var oLogText = document.createTextNode("OLog Settings");
+
+oLogSpan.appendChild(oLogText);
+oLogAnchor.appendChild(oLogSpan);
+oLogLi.appendChild(oLogAnchor);
+menuTable.appendChild(oLogLi);
+
 var page = getWindowVariable("currentPage");
 
 if (page === "messages") {
