@@ -51,9 +51,9 @@ function showOLogSettings() {
     
     oLogAnchor.classList.add("selected");
 
-    var inhaltDiv = document.getElementById("inhalt");
-    while (inhaltDiv.firstChild) {
-        inhaltDiv.removeChild(inhaltDiv.firstChild);
+    var contentWrapperDiv = document.getElementById("contentWrapper");
+    while (contentWrapperDiv.firstChild) {
+        contentWrapperDiv.removeChild(contentWrapperDiv.firstChild);
     }
     
     var buttonzDiv = document.createElement("div");
@@ -112,7 +112,7 @@ function showOLogSettings() {
     headerDiv.appendChild(headerH2);
     buttonzDiv.appendChild(headerDiv);
     buttonzDiv.appendChild(contentDiv);
-    inhaltDiv.appendChild(buttonzDiv);
+    contentWrapperDiv.appendChild(buttonzDiv);
 }
 
 var page = getWindowVariable("currentPage");
