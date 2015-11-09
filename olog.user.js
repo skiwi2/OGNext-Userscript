@@ -183,7 +183,7 @@ function postData(object) {
 }
 
 function addPlayerData(data) {
-    data.server = getWindowVariable("constants.language");
+    data.serverGroup = getWindowVariable("constants.language");
     data.universe = getWindowVariable("constants.name");
     data.playerId = getWindowVariable("playerId");
     data.playerName = getWindowVariable("playerName");
