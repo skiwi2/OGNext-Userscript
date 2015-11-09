@@ -19,9 +19,27 @@ oLogLi.onfocus = function(c) {
 }
 
 var oLogAnchor = document.createElement("a");
-oLogAnchor.className = "menubutton"
-oLogAnchor.href = "#"
+oLogAnchor.className = "menubutton";
+oLogAnchor.href = "#ologsettings";
 oLogAnchor.onclick = function() {
+    showOLogSettings();
+}
+
+var oLogSpan = document.createElement("span");
+oLogSpan.className = "textlabel"
+
+var oLogText = document.createTextNode("OLog Settings");
+
+oLogSpan.appendChild(oLogText);
+oLogAnchor.appendChild(oLogSpan);
+oLogLi.appendChild(oLogAnchor);
+menuTable.appendChild(oLogLi);
+
+if (window.location.hash === "#ologsettings") {
+    showOLogSettings();
+}
+
+function showOLogSettings() {
     var menuTableLiList = menuTable.querySelectorAll("li");
     for (var i = 0; i < menuTableLiList.length; i++) {
         menuTableLiList[i].querySelector(".menubutton").classList.remove("selected");
@@ -89,16 +107,6 @@ oLogAnchor.onclick = function() {
     buttonzDiv.appendChild(contentDiv);
     inhaltDiv.appendChild(buttonzDiv);
 }
-
-var oLogSpan = document.createElement("span");
-oLogSpan.className = "textlabel"
-
-var oLogText = document.createTextNode("OLog Settings");
-
-oLogSpan.appendChild(oLogText);
-oLogAnchor.appendChild(oLogSpan);
-oLogLi.appendChild(oLogAnchor);
-menuTable.appendChild(oLogLi);
 
 var page = getWindowVariable("currentPage");
 
