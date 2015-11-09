@@ -21,8 +21,21 @@ oLogLi.onfocus = function(c) {
 var oLogAnchor = document.createElement("a");
 oLogAnchor.className = "menubutton"
 oLogAnchor.href = "#"
-oLogAnchor.onclick = function() {
-    alert("OLog Settings");
+oLogAnchor.onclick = function() {    
+    var menuTableLiList = menuTable.querySelectorAll("li");
+    for (var i = 0; i < menuTableLiList.length; i++) {
+        console.log(menuTableLiList[i]);
+        console.log(menuTableLiList[i].querySelector(".menubutton"));
+        console.log(menuTableLiList[i].querySelector(".menubutton").classList);
+        menuTableLiList[i].querySelector(".menubutton").classList.remove("selected");
+    }
+    
+    oLogAnchor.classList.add("selected");
+
+    var inhaltDiv = document.getElementById("inhalt");
+    while (inhaltDiv.firstChild) {
+        inhaltDiv.removeChild(inhaltDiv.firstChild);
+    }
 }
 
 var oLogSpan = document.createElement("span");
