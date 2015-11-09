@@ -4,9 +4,13 @@
 // @description         OLog Userscript
 // @include             http://s*-*.ogame.gameforge.com/game/*
 // @grant               GM_xmlhttpRequest
+// @grant               GM_getValue
+// @grant               GM_setValue
 // ==/UserScript==
 
 "use strict";
+
+var oLogInstanceUrl = GM_getValue("settings.ologinstanceurl", "http://localhost:8080/");
 
 var menuTable = document.getElementById("menuTable");
 
@@ -23,7 +27,7 @@ oLogAnchor.className = "menubutton";
 oLogAnchor.href = "#ologsettings";
 oLogAnchor.onclick = function() {
     showOLogSettings();
-}
+};
 
 var oLogSpan = document.createElement("span");
 oLogSpan.className = "textlabel"
@@ -80,7 +84,7 @@ function showOLogSettings() {
     oLogInstanceUrlInput.className = "textinput w200";
     oLogInstanceUrlInput.type = "text";
     oLogInstanceUrlInput.size = "30";
-    oLogInstanceUrlInput.value = "";
+    oLogInstanceUrlInput.value = oLogInstanceUrl;
     oLogInstanceUrlInput.maxlength = "20";
     
     var settingsSaveDiv = document.createElement("div");
@@ -90,6 +94,9 @@ function showOLogSettings() {
     settingsSaveInput.className = "btn_blue";
     settingsSaveInput.type = "submit";
     settingsSaveInput.value = "Save settings";
+    settingsSaveInput.onclick = function() {
+        GM_setValue("settings.ologinstanceurl", oLogInstanceUrlInput.value);
+    };
     
     oLogInstanceUrlLabel.appendChild(oLogInstanceUrlText);
     oLogInstanceUrlTheFieldDiv.appendChild(oLogInstanceUrlInput);
