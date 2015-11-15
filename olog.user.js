@@ -96,6 +96,7 @@ function showOLogSettings() {
     settingsSaveInput.value = "Save settings";
     settingsSaveInput.onclick = function() {
         GM_setValue("settings.ologinstanceurl", oLogInstanceUrlInput.value);
+        showSuccessMessage("Settings have been saved.");
     };
     
     oLogInstanceUrlLabel.appendChild(oLogInstanceUrlText);
@@ -199,4 +200,12 @@ function addPlayerData(data) {
  */
 function getWindowVariable(name) {
     return window.eval(name);
+}
+
+function showSuccessMessage(message) {
+    getWindowVariable("fadeBox")(message, false);
+}
+
+function showErrorMessage(message) {
+    getWindowVariable("fadeBox")(message, true);
 }
