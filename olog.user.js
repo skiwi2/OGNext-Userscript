@@ -10,7 +10,7 @@
 
 "use strict";
 
-var oLogInstanceUrl = GM_getValue("settings.ologinstanceurl", "http://localhost:8080/");
+var oLogInstanceUrl = getSetting("settings.ologinstanceurl", "http://localhost:8080/");
 
 var menuTable = document.getElementById("menuTable");
 
@@ -95,7 +95,7 @@ function showOLogSettings() {
     settingsSaveInput.type = "submit";
     settingsSaveInput.value = "Save settings";
     settingsSaveInput.onclick = function() {
-        GM_setValue("settings.ologinstanceurl", oLogInstanceUrlInput.value);
+        saveSetting("settings.ologinstanceurl", oLogInstanceUrlInput.value);
         showSuccessMessage("Settings have been saved.");
     };
     
@@ -208,4 +208,14 @@ function showSuccessMessage(message) {
 
 function showErrorMessage(message) {
     getWindowVariable("fadeBox")(message, true);
+}
+
+function saveSetting(key, value) {
+    var fullKey = getWindowVariable("constants.language") + ":" + getWindowVariable("constants.name") + ":" + getWindowVariable("playerId") + ":" + key;
+    GM_setValue(fullKey, value);
+}
+
+function getSetting(key, defaultValue) {
+    var fullKey = getWindowVariable("constants.language") + ":" + getWindowVariable("constants.name") + ":" + getWindowVariable("playerId") + ":" + key;
+    return GM_getValue(fullKey, defaultValue);
 }
