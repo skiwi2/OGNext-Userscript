@@ -146,7 +146,7 @@ function processMessageNodes(nodes) {
         var node = nodes[i];
         var apiElement = node.querySelector(".icon_apikey");
         if (apiElement !== null) {
-            var key = node.querySelector(".icon_apikey").title;
+            var key = apiElement.parentNode.href.replace(/.*?:\/\//g, "");
             var type = key.substring(0, 2);
             if (reportKeys.hasOwnProperty(type)) {
                 reportKeys[type].push(key);
