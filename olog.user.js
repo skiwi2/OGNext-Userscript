@@ -2,6 +2,9 @@
 // @name                OLog
 // @namespace           http://www.olog.com/
 // @description         OLog Userscript
+// @downloadURL         https://github.com/skiwi2/OLog-Userscript/raw/master/olog.user.js
+// @updateURL           https://github.com/skiwi2/OLog-Userscript/raw/master/olog.user.js
+// @version             0.1pre
 // @include             http://s*-*.ogame.gameforge.com/game/*
 // @grant               GM_xmlhttpRequest
 // @grant               GM_getValue
