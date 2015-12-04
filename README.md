@@ -8,8 +8,8 @@ Getting started
 OLog mainly consists of two parts. You are currently looking at the client part.
 The userscript has been tested with:
 
-- Firefox + Greasemonkey
-- Chrome + Tampermonkey
+- Firefox + Greasemonkey (fully tested)
+- Chrome + Tampermonkey (partly tested)
 
 Build, run and deploy
 ---------------------
