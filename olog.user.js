@@ -59,6 +59,9 @@ function showOLogSettings() {
         contentWrapperDiv.removeChild(contentWrapperDiv.firstChild);
     }
     
+    var inhaltDiv = document.createElement("div");
+    inhaltDiv.id = "inhalt";
+    
     var buttonzDiv = document.createElement("div");
     buttonzDiv.id = "buttonz";
     
@@ -67,7 +70,7 @@ function showOLogSettings() {
     
     var headerH2 = document.createElement("h2");
     
-    var headerText = document.createTextNode("OLog Settings");
+    var headerText = document.createTextNode("Your settings");
     
     var contentDiv = document.createElement("div");
     contentDiv.className = "content";
@@ -116,7 +119,35 @@ function showOLogSettings() {
     headerDiv.appendChild(headerH2);
     buttonzDiv.appendChild(headerDiv);
     buttonzDiv.appendChild(contentDiv);
-    contentWrapperDiv.appendChild(buttonzDiv);
+    
+    var planetDiv = document.createElement("div");
+    planetDiv.id = "planet";
+    planetDiv.style = "background-image: url(http://gf2.geo.gfsrv.net/cdndd/09a2a0d07394b5a7b5db40f5cbb8cc.jpg);";
+    
+    var headerTextDiv = document.createElement("div");
+    headerTextDiv.id = "header_text";
+    
+    var headerTextH2 = document.createElement("h2");
+    
+    var headerTextText = document.createTextNode("OLog Settings");
+    
+    headerTextH2.appendChild(headerTextText);
+    headerTextDiv.appendChild(headerTextH2);
+    
+    planetDiv.appendChild(headerTextDiv);
+    
+    var cLeftDiv = document.createElement("div");
+    cLeftDiv.className = "c-left";
+    
+    var cRightDiv = document.createElement("div");
+    cRightDiv.className = "c-right";
+    
+    inhaltDiv.appendChild(planetDiv);
+    inhaltDiv.appendChild(cLeftDiv);
+    inhaltDiv.appendChild(cRightDiv);
+    inhaltDiv.appendChild(buttonzDiv);
+    
+    contentWrapperDiv.appendChild(inhaltDiv);
 }
 
 var page = getWindowVariable("currentPage");
