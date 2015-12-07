@@ -124,6 +124,9 @@ function showOLogSettings() {
     planetDiv.id = "planet";
     planetDiv.style = "background-image: url(http://gf2.geo.gfsrv.net/cdndd/09a2a0d07394b5a7b5db40f5cbb8cc.jpg);";
     
+    var detailWrapperDiv = document.createElement("div");
+    detailWrapperDiv.id = "detailWrapper";
+    
     var headerTextDiv = document.createElement("div");
     headerTextDiv.id = "header_text";
     
@@ -134,7 +137,105 @@ function showOLogSettings() {
     headerTextH2.appendChild(headerTextText);
     headerTextDiv.appendChild(headerTextH2);
     
-    planetDiv.appendChild(headerTextDiv);
+    var planetdataDiv = document.createElement("div");
+    planetdataDiv.id = "planetdata";
+    
+    var overlayDiv = document.createElement("div");
+    overlayDiv.className = "overlay";
+    
+    var planetDetailsDiv = document.createElement("div");
+    planetDetailsDiv.id = "planetDetails";
+    
+    var planetDetailsTable = document.createElement("table");
+    planetDetailsTable.width = "100%";
+    planetDetailsTable.cellspacing = "0";
+    planetDetailsTable.cellpadding = "0";
+    
+    var planetDetailsTbody = document.createElement("tbody");
+    
+    var planetDetailsTr1 = document.createElement("tr");
+    
+    var planetDetailsTr1DescTd = document.createElement("td");
+    planetDetailsTr1DescTd.className = "desc";
+    
+    var planetDetailsTr1DescTdContent = document.createTextNode("Server Group");
+    planetDetailsTr1DescTd.appendChild(planetDetailsTr1DescTdContent);
+    
+    var planetDetailsTr1DataTd = document.createElement("td");
+    planetDetailsTr1DataTd.className = "data";
+    
+    var planetDetailsTr1DataTdContent = document.createTextNode(getWindowVariable("constants.language"));
+    planetDetailsTr1DataTd.appendChild(planetDetailsTr1DataTdContent);
+    
+    planetDetailsTr1.appendChild(planetDetailsTr1DescTd);
+    planetDetailsTr1.appendChild(planetDetailsTr1DataTd);
+    
+    var planetDetailsTr2 = document.createElement("tr");
+    
+    var planetDetailsTr2DescTd = document.createElement("td");
+    planetDetailsTr2DescTd.className = "desc";
+    
+    var planetDetailsTr2DescTdContent = document.createTextNode("Universe ID");
+    planetDetailsTr2DescTd.appendChild(planetDetailsTr2DescTdContent);
+    
+    var planetDetailsTr2DataTd = document.createElement("td");
+    planetDetailsTr2DataTd.className = "data";
+    
+    var planetDetailsTr2DataTdContent = document.createTextNode(getWindowVariable("constants.name"));
+    planetDetailsTr2DataTd.appendChild(planetDetailsTr2DataTdContent);
+    
+    planetDetailsTr2.appendChild(planetDetailsTr2DescTd);
+    planetDetailsTr2.appendChild(planetDetailsTr2DataTd);
+    
+    var planetDetailsTr3 = document.createElement("tr");
+    
+    var planetDetailsTr3DescTd = document.createElement("td");
+    planetDetailsTr3DescTd.className = "desc";
+    
+    var planetDetailsTr3DescTdContent = document.createTextNode("Player ID");
+    planetDetailsTr3DescTd.appendChild(planetDetailsTr3DescTdContent);
+    
+    var planetDetailsTr3DataTd = document.createElement("td");
+    planetDetailsTr3DataTd.className = "data";
+    
+    var planetDetailsTr3DataTdContent = document.createTextNode(getWindowVariable("playerId"));
+    planetDetailsTr3DataTd.appendChild(planetDetailsTr3DataTdContent);
+    
+    planetDetailsTr3.appendChild(planetDetailsTr3DescTd);
+    planetDetailsTr3.appendChild(planetDetailsTr3DataTd);
+    
+    var planetDetailsTr4 = document.createElement("tr");
+    
+    var planetDetailsTr4DescTd = document.createElement("td");
+    planetDetailsTr4DescTd.className = "desc";
+    
+    var planetDetailsTr4DescTdContent = document.createTextNode("Player Name");
+    planetDetailsTr4DescTd.appendChild(planetDetailsTr4DescTdContent);
+    
+    var planetDetailsTr4DataTd = document.createElement("td");
+    planetDetailsTr4DataTd.className = "data";
+    
+    var planetDetailsTr4DataTdContent = document.createTextNode(getWindowVariable("playerName"));
+    planetDetailsTr4DataTd.appendChild(planetDetailsTr4DataTdContent);
+    
+    planetDetailsTr4.appendChild(planetDetailsTr4DescTd);
+    planetDetailsTr4.appendChild(planetDetailsTr4DataTd);
+    
+    planetDetailsTbody.appendChild(planetDetailsTr1);
+    planetDetailsTbody.appendChild(planetDetailsTr2);
+    planetDetailsTbody.appendChild(planetDetailsTr3);
+    planetDetailsTbody.appendChild(planetDetailsTr4);
+    
+    planetDetailsTable.appendChild(planetDetailsTbody);
+    planetDetailsDiv.appendChild(planetDetailsTable);
+    
+    planetdataDiv.appendChild(overlayDiv);
+    planetdataDiv.appendChild(planetDetailsDiv);
+    
+    detailWrapperDiv.appendChild(headerTextDiv);
+    detailWrapperDiv.appendChild(planetdataDiv);
+    
+    planetDiv.appendChild(detailWrapperDiv);
     
     var cLeftDiv = document.createElement("div");
     cLeftDiv.className = "c-left";
