@@ -221,10 +221,28 @@ function showOLogSettings() {
     planetDetailsTr4.appendChild(planetDetailsTr4DescTd);
     planetDetailsTr4.appendChild(planetDetailsTr4DataTd);
     
+    var planetDetailsTr5 = document.createElement("tr");
+    
+    var planetDetailsTr5DescTd = document.createElement("td");
+    planetDetailsTr5DescTd.className = "desc";
+    
+    var planetDetailsTr5DescTdContent = document.createTextNode("Userscript Version");
+    planetDetailsTr5DescTd.appendChild(planetDetailsTr5DescTdContent);
+    
+    var planetDetailsTr5DataTd = document.createElement("td");
+    planetDetailsTr5DataTd.className = "data";
+    
+    var planetDetailsTr5DataTdContent = document.createTextNode(GM_info.script.version);
+    planetDetailsTr5DataTd.appendChild(planetDetailsTr5DataTdContent);
+    
+    planetDetailsTr5.appendChild(planetDetailsTr5DescTd);
+    planetDetailsTr5.appendChild(planetDetailsTr5DataTd);
+    
     planetDetailsTbody.appendChild(planetDetailsTr1);
     planetDetailsTbody.appendChild(planetDetailsTr2);
     planetDetailsTbody.appendChild(planetDetailsTr3);
     planetDetailsTbody.appendChild(planetDetailsTr4);
+    planetDetailsTbody.appendChild(planetDetailsTr5);
     
     planetDetailsTable.appendChild(planetDetailsTbody);
     planetDetailsDiv.appendChild(planetDetailsTable);
