@@ -108,6 +108,8 @@ function showOLogSettings() {
         '            <div class="textCenter">\n' +
         '                <input class="btn_blue" type="submit" value="Save settings" id="ologSaveSettingsInput" />\n' +
         '            </div>\n' +
+        '            <div class="footer"></div>\n' +
+        '            <br class="clearfloat" />\n' +
         '        </div>\n' +
         '    </div>\n' +
         '</div>\n' +
