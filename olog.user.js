@@ -142,6 +142,37 @@ if (page === "messages") {
     observer.observe(document, { childList: true, subtree: true });
 }
 
+var planetListDiv = document.getElementById("planetList");
+if (planetListDiv !== null) {
+    var planets = [];
+    
+    for (var i = 0; i < planetListDiv.children.length; i++) {
+        var planetDiv = planetListDiv.children[i];
+        var planetId = planetDiv.id.replace("planet-", "");
+        var planetName = planetDiv.querySelector(".planet-name").innerHTML;
+        var planetCoordsRaw = planetDiv.querySelector(".planet-koords").innerHTML;
+        var planetCoordsList = planetCoordsRaw.slice(1, -1).split(":");
+        planets.push({
+            id: planetId,
+            name: planetName,
+            galaxy: planetCoordsList[0],
+            solarSystem: planetCoordsList[1],
+            position: planetCoordsList[2]
+        });
+    }
+    
+    var planetsString = JSON.stringify(planets);
+    if (getSetting("planets_cache", "") !== planetsString) {
+        postData({
+            endpoint: "planets",
+            data: {
+                planets: planets
+            }
+        });
+        saveSetting("planets_cache", planetsString);
+    }
+}
+
 function processMessageNodes(nodes) {
     var reportKeys = {
         sr: [],     //spy report
