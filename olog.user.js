@@ -120,6 +120,8 @@ function showOLogSettings() {
     var oLogSaveSettingsInput = document.getElementById("ologSaveSettingsInput");
     oLogSaveSettingsInput.addEventListener("click", function() {
         saveSetting("settings.ologinstanceurl", oLogInstanceUrlInput.value);
+        saveSetting("planets_cache", "");
+        saveSetting("researches_cache", "");
         showSuccessMessage("Settings have been saved.");
     });
 }
