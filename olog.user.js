@@ -134,7 +134,7 @@ if (page === "messages") {
             for(var i = 0; i < mutation.addedNodes.length; i++) {
                 var node = mutation.addedNodes[i];
                 if (node.localName === "ul" && node.classList.contains("tab_inner")) {
-                    //send all messages at once such that all SR keys can be sent at once to the server
+                    //send all messages at once such that all report keys can be sent at once to the server
                     processMessageNodes(node.querySelectorAll(".msg"));
                 }
             }
@@ -172,8 +172,6 @@ function processMessageNodes(nodes) {
             }
         }
     }
-    
-    console.log(reportKeys);
     
     postData({
         endpoint: "keys",
