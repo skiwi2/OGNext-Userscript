@@ -141,6 +141,10 @@ if (page === "messages") {
     
     observer.observe(document, { childList: true, subtree: true });
 }
+else if (page === "research") {
+    var itemBoxDivs = document.querySelectorAll(".item_box");
+    processResearchNodes(itemBoxDivs);
+}
 
 var planetListDiv = document.getElementById("planetList");
 if (planetListDiv !== null) {
@@ -199,6 +203,42 @@ function processMessageNodes(nodes) {
         endpoint: "keys",
         data: {
             reportKeys: reportKeys
+        }
+    });
+}
+
+function processResearchNodes(nodes) {
+    var researches = [];
+
+    for (var i = 0; i < nodes.length; i++) {
+        var node = nodes[i];
+        var detailButtonElement = node.querySelector(".detail_button");
+        if (detailButtonElement !== null) {
+            var researchId = detailButtonElement.getAttribute("ref");
+            var cloneLevelNode = detailButtonElement.querySelector(".level").cloneNode(true);
+            var children = [].slice.call(cloneLevelNode.children);
+            
+            for (var j = 0; j < children.length; j++) {
+                var child = children[j];
+                if (child.className === "textlabel" || child.className === "undermark") {
+                    cloneLevelNode.removeChild(child);
+                }
+            }
+            var researchLevel = cloneLevelNode.innerHTML.trim();
+            
+            researches.push({
+                id: researchId,
+                level: researchLevel
+            });
+        }
+    }
+    
+    console.log(researches);
+    
+    postData({
+        endpoint: "researches",
+        data: {
+            researches: researches
         }
     });
 }
