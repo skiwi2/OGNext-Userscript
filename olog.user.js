@@ -233,14 +233,16 @@ function processResearchNodes(nodes) {
         }
     }
     
-    console.log(researches);
-    
-    postData({
-        endpoint: "researches",
-        data: {
-            researches: researches
-        }
-    });
+    var researchesString = JSON.stringify(researches);
+    if (getSetting("researches_cache", "") !== researchesString) {
+        postData({
+            endpoint: "researches",
+            data: {
+                researches: researches
+            }
+        });
+        saveSetting("researches_cache", researchesString);
+    }
 }
 
 function postData(object) {
