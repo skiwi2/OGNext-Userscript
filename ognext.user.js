@@ -1,9 +1,9 @@
 // ==UserScript==
-// @name                OLog
-// @namespace           http://www.olog.com/
-// @description         OLog Userscript
-// @downloadURL         https://github.com/skiwi2/OLog-Userscript/raw/master/olog.user.js
-// @updateURL           https://github.com/skiwi2/OLog-Userscript/raw/master/olog.user.js
+// @name                OGNext
+// @namespace           http://www.ognext.com/
+// @description         OGNext Userscript
+// @downloadURL         https://github.com/skiwi2/OGNext-Userscript/raw/master/ognext.user.js
+// @updateURL           https://github.com/skiwi2/OGNext-Userscript/raw/master/ognext.user.js
 // @version             0.3pre
 // @include             http://s*-*.ogame.gameforge.com/game/*
 // @grant               GM_xmlhttpRequest
@@ -13,18 +13,18 @@
 
 "use strict";
 
-var oLogInstanceUrl = getSetting("settings.ologinstanceurl", "http://localhost:8080/");
+var oLogInstanceUrl = getSetting("settings.ognextinstanceurl", "http://localhost:8080/");
 
 var menuTable = document.getElementById("menuTable");
 
 menuTable.insertAdjacentHTML("beforeend", '' +
-    '<li id="ologMenuLi">\n' +
-    '    <a id="ologMenuAnchor" class="menubutton" href="#ologsettings">\n' +
-    '        <span class="textlabel">OLog Settings</span>\n' +
+    '<li id="ognextMenuLi">\n' +
+    '    <a id="ognextMenuAnchor" class="menubutton" href="#ognextsettings">\n' +
+    '        <span class="textlabel">OGNext Settings</span>\n' +
     '    </a>\n' +
     '</li>\n');
 
-var oLogMenuLi = document.getElementById("ologMenuLi");
+var oLogMenuLi = document.getElementById("ognextMenuLi");
 oLogMenuLi.addEventListener("focus", function(c) {
     if (b(c.target).closest(".dropdown").length == 0) {
         b(".currentlySelected a").removeClass("hover");
@@ -32,16 +32,16 @@ oLogMenuLi.addEventListener("focus", function(c) {
     }
 });
 
-var oLogMenuAnchor = document.getElementById("ologMenuAnchor");
+var oLogMenuAnchor = document.getElementById("ognextMenuAnchor");
 oLogMenuAnchor.addEventListener("click", function() {
-    showOLogSettings();
+    showOGNextSettings();
 });
 
-if (window.location.hash === "#ologsettings") {
-    showOLogSettings();
+if (window.location.hash === "#ognextsettings") {
+    showOGNextSettings();
 }
 
-function showOLogSettings() {
+function showOGNextSettings() {
     var menuTableLiList = menuTable.querySelectorAll("li");
     for (var i = 0; i < menuTableLiList.length; i++) {
         menuTableLiList[i].querySelector(".menubutton").classList.remove("selected");
@@ -59,7 +59,7 @@ function showOLogSettings() {
         '    <div id="planet" style="background-image: url(http://gf2.geo.gfsrv.net/cdndd/09a2a0d07394b5a7b5db40f5cbb8cc.jpg);">\n' +
         '        <div id="detailwrapper">\n' +
         '            <div id="header_text">\n' +
-        '                <h2>OLog Settings</h2>\n' +
+        '                <h2>OGNext Settings</h2>\n' +
         '            </div>\n' +
         '            <div id="planetdata">\n' +
         '                <div class="overlay"></div>\n' +
@@ -100,13 +100,13 @@ function showOLogSettings() {
         '        </div>\n' +
         '        <div class="content">\n' +
         '            <div class="fieldwrapper">\n' +
-        '                <label class="styled textBeefy">OLog Instance URL:</label>\n' +
+        '                <label class="styled textBeefy">OGNext Instance URL:</label>\n' +
         '                <div class="thefield">\n' +
-        '                    <input class="textinput w200" type="text" size="30" value="' + oLogInstanceUrl + '" id="ologInstanceUrlInput" />\n' +
+        '                    <input class="textinput w200" type="text" size="30" value="' + oLogInstanceUrl + '" id="ognextInstanceUrlInput" />\n' +
         '                </div>\n' +
         '            </div>\n' +
         '            <div class="textCenter">\n' +
-        '                <input class="btn_blue" type="submit" value="Save settings" id="ologSaveSettingsInput" />\n' +
+        '                <input class="btn_blue" type="submit" value="Save settings" id="ognextSaveSettingsInput" />\n' +
         '            </div>\n' +
         '            <div class="footer"></div>\n' +
         '            <br class="clearfloat" />\n' +
@@ -115,11 +115,11 @@ function showOLogSettings() {
         '</div>\n' +
         '');
 
-    var oLogInstanceUrlInput = document.getElementById("ologInstanceUrlInput");
+    var oLogInstanceUrlInput = document.getElementById("ognextInstanceUrlInput");
 
-    var oLogSaveSettingsInput = document.getElementById("ologSaveSettingsInput");
+    var oLogSaveSettingsInput = document.getElementById("ognextSaveSettingsInput");
     oLogSaveSettingsInput.addEventListener("click", function() {
-        saveSetting("settings.ologinstanceurl", oLogInstanceUrlInput.value);
+        saveSetting("settings.ognextinstanceurl", oLogInstanceUrlInput.value);
         saveSetting("planets_cache", "");
         saveSetting("researches_cache", "");
         showSuccessMessage("Settings have been saved.");
