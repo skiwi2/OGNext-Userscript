@@ -137,13 +137,15 @@ function showErrorMessage(message) {
 }
 
 function saveSetting(key, value) {
-    var fullKey = getWindowVariable("constants.language") + ":" + getWindowVariable("constants.name") + ":" + getWindowVariable("playerId") + ":" + key;
-    GM_setValue(fullKey, value);
+    GM_setValue(getFullSettingsKey(key), value);
 }
 
 function getSetting(key, defaultValue) {
-    var fullKey = getWindowVariable("constants.language") + ":" + getWindowVariable("constants.name") + ":" + getWindowVariable("playerId") + ":" + key;
-    return GM_getValue(fullKey, defaultValue);
+    return GM_getValue(getFullSettingsKey(key), defaultValue);
+}
+
+function getFullSettingsKey(key) {
+    return getWindowVariable("constants.language") + ":" + getWindowVariable("constants.name") + ":" + getWindowVariable("playerId") + ":" + key;
 }
 
 function executeIfNotCached(cacheKey, value, callback) {
