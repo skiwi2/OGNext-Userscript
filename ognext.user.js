@@ -121,8 +121,8 @@ function showOGNextSettings() {
     var oLogSaveSettingsInput = document.getElementById("ognextSaveSettingsInput");
     oLogSaveSettingsInput.addEventListener("click", function() {
         saveSetting("settings.ognextinstanceurl", oLogInstanceUrlInput.value);
-        saveSetting("planets_cache", "");
-        saveSetting("researches_cache", "");
+        saveSetting(getFullCacheKey("planets"), "");
+        saveSetting(getFullCacheKey("researches"), "");
         showSuccessMessage("Settings have been saved.");
     });
 }

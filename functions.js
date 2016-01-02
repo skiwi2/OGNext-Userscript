@@ -44,16 +44,14 @@ function processPlanetNodes(nodes) {
         });
     }
     
-    var planetsString = JSON.stringify(planets);
-    if (getSetting("planets_cache", "") !== planetsString) {
+    executeIfNotCached("planets", planets, function () {
         postData({
             endpoint: "planets",
             data: {
                 planets: planets
             }
         });
-        saveSetting("planets_cache", planetsString);
-    }
+    });
 }
 
 function processResearchNodes(nodes) {
@@ -82,16 +80,14 @@ function processResearchNodes(nodes) {
         }
     }
     
-    var researchesString = JSON.stringify(researches);
-    if (getSetting("researches_cache", "") !== researchesString) {
+    executeIfNotCached("researches", researches, function () {
         postData({
             endpoint: "researches",
             data: {
                 researches: researches
             }
         });
-        saveSetting("researches_cache", researchesString);
-    }
+    });
 }
 
 function postData(object) {
@@ -148,4 +144,17 @@ function saveSetting(key, value) {
 function getSetting(key, defaultValue) {
     var fullKey = getWindowVariable("constants.language") + ":" + getWindowVariable("constants.name") + ":" + getWindowVariable("playerId") + ":" + key;
     return GM_getValue(fullKey, defaultValue);
+}
+
+function executeIfNotCached(cacheKey, value, callback) {
+    var valueString = JSON.stringify(value);
+    var fullCacheKey = getFullCacheKey(cacheKey);
+    if (getSetting(fullCacheKey, "") !== valueString) {
+        callback();
+        saveSetting(fullCacheKey, valueString);
+    }
+}
+
+function getFullCacheKey(cacheKey) {
+    return "cache." + cacheKey;
 }
