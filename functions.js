@@ -90,6 +90,82 @@ function processResearchNodes(nodes) {
     });
 }
 
+function processResourceBuildingNodes(nodes) {
+    var buildings = [];
+
+    for (var i = 0; i < nodes.length; i++) {
+        var node = nodes[i];
+        var detailButtonElement = node.querySelector("[id='details']");
+        if (detailButtonElement !== null) {
+            var buildingId = detailButtonElement.getAttribute("ref");
+            var cloneLevelNode = detailButtonElement.querySelector(".level").cloneNode(true);
+            var children = [].slice.call(cloneLevelNode.children);
+            
+            for (var j = 0; j < children.length; j++) {
+                var child = children[j];
+                if (child.className === "textlabel" || child.className === "undermark") {
+                    cloneLevelNode.removeChild(child);
+                }
+            }
+            var buildingLevel = cloneLevelNode.innerHTML.trim();
+            
+            buildings.push({
+                id: buildingId,
+                level: buildingLevel
+            });
+        }
+    }
+    
+    executeIfNotCached("resource_buildings", buildings, function () {
+        var data = {
+            buildings: buildings
+        }
+        addPlanetData(data);
+        postData({
+            endpoint: "resourceBuildings",
+            data: data
+        });
+    });
+}
+
+function processFacilityBuildingNodes(nodes) {
+    var buildings = [];
+
+    for (var i = 0; i < nodes.length; i++) {
+        var node = nodes[i];
+        var detailButtonElement = node.querySelector(".detail_button");
+        if (detailButtonElement !== null) {
+            var buildingId = detailButtonElement.getAttribute("ref");
+            var cloneLevelNode = detailButtonElement.querySelector(".level").cloneNode(true);
+            var children = [].slice.call(cloneLevelNode.children);
+            
+            for (var j = 0; j < children.length; j++) {
+                var child = children[j];
+                if (child.className === "textlabel" || child.className === "undermark") {
+                    cloneLevelNode.removeChild(child);
+                }
+            }
+            var buildingLevel = cloneLevelNode.innerHTML.trim();
+            
+            buildings.push({
+                id: buildingId,
+                level: buildingLevel
+            });
+        }
+    }
+    
+    executeIfNotCached("facility_buildings", buildings, function () {
+        var data = {
+            buildings: buildings
+        }
+        addPlanetData(data);
+        postData({
+            endpoint: "facilityBuildings",
+            data: data
+        });
+    });
+}
+
 function postData(object) {
     addPlayerData(object.data);
     console.log(JSON.stringify(object.data));
@@ -116,6 +192,15 @@ function addPlayerData(data) {
     data.playerName = getWindowVariable("playerName");
 }
 
+function addPlanetData(data) {
+    data.planetId = getMetaValue("ogame-planet-id");
+    data.planetName = getMetaValue("ogame-planet-name");
+    var coordinate = getMetaValue("ogame-planet-coordinates").split(":");
+    data.planetGalaxy = coordinate[0];
+    data.planetSolarSystem = coordinate[1];
+    data.planetPosition = coordinate[2];
+}
+
 /**
  * Returns a global variable.
  *
@@ -126,6 +211,10 @@ function addPlayerData(data) {
  */
 function getWindowVariable(name) {
     return window.eval(name);
+}
+
+function getMetaValue(name) {
+    return document.querySelector("meta[name='" + name + "']").content;
 }
 
 function showSuccessMessage(message) {

@@ -123,6 +123,8 @@ function showOGNextSettings() {
         saveSetting("settings.ognextinstanceurl", oLogInstanceUrlInput.value);
         saveSetting(getFullCacheKey("planets"), "");
         saveSetting(getFullCacheKey("researches"), "");
+        saveSetting(getFullCacheKey("resource_buildings"), "");
+        saveSetting(getFullCacheKey("facility_buildings"), "");
         showSuccessMessage("Settings have been saved.");
     });
 }
@@ -147,6 +149,14 @@ if (page === "messages") {
 else if (page === "research") {
     var itemBoxDivs = document.querySelectorAll(".item_box");
     processResearchNodes(itemBoxDivs);
+}
+else if (page === "resources") {
+    var itemBoxDivs = document.querySelectorAll("[class^='supply']");
+    processResourceBuildingNodes(itemBoxDivs);
+}
+else if (page === "station") {
+    var itemBoxDivs = document.querySelectorAll(".item_box");
+    processFacilityBuildingNodes(itemBoxDivs);
 }
 
 var planetListDiv = document.getElementById("planetList");
