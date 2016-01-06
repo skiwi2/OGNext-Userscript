@@ -125,6 +125,7 @@ function showOGNextSettings() {
         saveSetting(getFullCacheKey("researches"), "");
         saveSetting(getFullCacheKey("resource_buildings"), "");
         saveSetting(getFullCacheKey("facility_buildings"), "");
+        saveSetting(getFullCacheKey("defences"), "");
         showSuccessMessage("Settings have been saved.");
     });
 }
@@ -157,6 +158,10 @@ else if (page === "resources") {
 else if (page === "station") {
     var itemBoxDivs = document.querySelectorAll(".item_box");
     processFacilityBuildingNodes(itemBoxDivs);
+}
+else if (page === "defense") {
+    var itemBoxDivs = document.querySelectorAll(".item_box");
+    processDefenceNodes(itemBoxDivs);
 }
 
 var planetListDiv = document.getElementById("planetList");

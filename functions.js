@@ -166,6 +166,44 @@ function processFacilityBuildingNodes(nodes) {
     });
 }
 
+function processDefenceNodes(nodes) {
+    var defences = [];
+
+    for (var i = 0; i < nodes.length; i++) {
+        var node = nodes[i];
+        var detailButtonElement = node.querySelector(".detail_button");
+        if (detailButtonElement !== null) {
+            var buildingId = detailButtonElement.getAttribute("ref");
+            var cloneLevelNode = detailButtonElement.querySelector(".level").cloneNode(true);
+            var children = [].slice.call(cloneLevelNode.children);
+            
+            for (var j = 0; j < children.length; j++) {
+                var child = children[j];
+                if (child.className === "textlabel" || child.className === "undermark") {
+                    cloneLevelNode.removeChild(child);
+                }
+            }
+            var defenceLevel = cloneLevelNode.innerHTML.trim();
+            
+            defences.push({
+                id: buildingId,
+                level: defenceLevel
+            });
+        }
+    }
+    
+    executeIfNotCached("defences", defences, function () {
+        var data = {
+            defences: defences
+        }
+        addPlanetData(data);
+        postData({
+            endpoint: "defences",
+            data: data
+        });
+    });
+}
+
 function postData(object) {
     addPlayerData(object.data);
     console.log(JSON.stringify(object.data));
