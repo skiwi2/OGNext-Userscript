@@ -204,6 +204,44 @@ function processDefenceNodes(nodes) {
     });
 }
 
+function processFleetNodes(nodes) {
+    var fleet = [];
+
+    for (var i = 0; i < nodes.length; i++) {
+        var node = nodes[i];
+        var aTooltipElement = node.querySelector(".tooltip");
+        if (aTooltipElement !== null) {
+            var fleetId = node.id.replace(/\D/g, "");
+            var cloneLevelNode = aTooltipElement.querySelector(".level").cloneNode(true);
+            var children = [].slice.call(cloneLevelNode.children);
+            
+            for (var j = 0; j < children.length; j++) {
+                var child = children[j];
+                if (child.className === "textlabel" || child.className === "undermark") {
+                    cloneLevelNode.removeChild(child);
+                }
+            }
+            var fleetAmount = cloneLevelNode.innerHTML.trim();
+            
+            fleet.push({
+                id: fleetId,
+                amount: fleetAmount
+            });
+        }
+    }
+    
+    executeIfNotCached("fleet", fleet, function () {
+        var data = {
+            fleet: fleet
+        }
+        addPlanetData(data);
+        postData({
+            endpoint: "fleet",
+            data: data
+        });
+    });
+}
+
 function postData(object) {
     addPlayerData(object.data);
     console.log(JSON.stringify(object.data));

@@ -126,6 +126,7 @@ function showOGNextSettings() {
         saveSetting(getFullCacheKey("resource_buildings"), "");
         saveSetting(getFullCacheKey("facility_buildings"), "");
         saveSetting(getFullCacheKey("defences"), "");
+        saveSetting(getFullCacheKey("fleet"), "");
         showSuccessMessage("Settings have been saved.");
     });
 }
@@ -162,6 +163,10 @@ else if (page === "station") {
 else if (page === "defense") {
     var itemBoxDivs = document.querySelectorAll(".item_box");
     processDefenceNodes(itemBoxDivs);
+}
+else if (page === "fleet1") {
+    var liButtonDivs = document.querySelectorAll("li[id^='button']");
+    processFleetNodes(liButtonDivs);
 }
 
 var planetListDiv = document.getElementById("planetList");
