@@ -127,6 +127,7 @@ function showOGNextSettings() {
         saveSetting(getFullCacheKey("facility_buildings"), "");
         saveSetting(getFullCacheKey("defences"), "");
         saveSetting(getFullCacheKey("fleet"), "");
+        saveSetting(getFullCacheKey("shipyard"), "");
         showSuccessMessage("Settings have been saved.");
     });
 }
@@ -167,6 +168,10 @@ else if (page === "defense") {
 else if (page === "fleet1") {
     var liButtonDivs = document.querySelectorAll("li[id^='button']");
     processFleetNodes(liButtonDivs);
+}
+else if (page === "shipyard") {
+    var itemBoxDivs = document.querySelectorAll(".item_box");
+    processShipyardNodes(itemBoxDivs);
 }
 
 var planetListDiv = document.getElementById("planetList");

@@ -242,6 +242,44 @@ function processFleetNodes(nodes) {
     });
 }
 
+function processShipyardNodes(nodes) {
+    var shipyard = [];
+
+    for (var i = 0; i < nodes.length; i++) {
+        var node = nodes[i];
+        var detailButtonElement = node.querySelector(".detail_button");
+        if (detailButtonElement !== null) {
+            var fleetId = detailButtonElement.getAttribute("ref");
+            var cloneLevelNode = detailButtonElement.querySelector(".level").cloneNode(true);
+            var children = [].slice.call(cloneLevelNode.children);
+            
+            for (var j = 0; j < children.length; j++) {
+                var child = children[j];
+                if (child.className === "textlabel" || child.className === "undermark") {
+                    cloneLevelNode.removeChild(child);
+                }
+            }
+            var fleetAmount = cloneLevelNode.innerHTML.trim();
+            
+            shipyard.push({
+                id: fleetId,
+                amount: fleetAmount
+            });
+        }
+    }
+    
+    executeIfNotCached("shipyard", shipyard, function () {
+        var data = {
+            shipyard: shipyard
+        }
+        addPlanetData(data);
+        postData({
+            endpoint: "shipyard",
+            data: data
+        });
+    });
+}
+
 function postData(object) {
     addPlayerData(object.data);
     console.log(JSON.stringify(object.data));
