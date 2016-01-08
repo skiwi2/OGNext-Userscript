@@ -183,11 +183,11 @@ function processDefenceNodes(nodes) {
                     cloneLevelNode.removeChild(child);
                 }
             }
-            var defenceLevel = cloneLevelNode.innerHTML.trim();
+            var defenceAmount = cloneLevelNode.innerHTML.trim();
             
             defences.push({
                 id: buildingId,
-                level: defenceLevel
+                amount: defenceAmount
             });
         }
     }
