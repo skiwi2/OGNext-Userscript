@@ -173,7 +173,7 @@ function processDefenceNodes(nodes) {
         var node = nodes[i];
         var detailButtonElement = node.querySelector(".detail_button");
         if (detailButtonElement !== null) {
-            var buildingId = detailButtonElement.getAttribute("ref");
+            var defenceId = detailButtonElement.getAttribute("ref");
             var cloneLevelNode = detailButtonElement.querySelector(".level").cloneNode(true);
             var children = [].slice.call(cloneLevelNode.children);
             
@@ -186,7 +186,7 @@ function processDefenceNodes(nodes) {
             var defenceAmount = cloneLevelNode.innerHTML.trim();
             
             defences.push({
-                id: buildingId,
+                id: defenceId,
                 amount: defenceAmount
             });
         }
