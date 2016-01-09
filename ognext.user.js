@@ -128,6 +128,11 @@ function showOGNextSettings() {
         saveSetting(getFullCacheKey("defences"), "");
         saveSetting(getFullCacheKey("fleet"), "");
         saveSetting(getFullCacheKey("shipyard"), "");
+        var planetCacheKeys = getUsedPlanetCacheKeys();
+        for (var i = 0; i < planetCacheKeys.length; i++) {
+            saveSetting(getFullCacheKey(planetCacheKeys[i]), "");
+        }
+        saveSetting("planetCacheKeys", "");
         showSuccessMessage("Settings have been saved.");
     });
 }

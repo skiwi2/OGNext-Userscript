@@ -139,7 +139,7 @@ function processResourceBuildingNodes(supplyNodes, itemBoxNodes) {
         }
     }
     
-    executeIfNotCached("resource_buildings", buildings, function () {
+    executeIfNotCachedForPlanet("resource_buildings", buildings, function () {
         var data = {
             buildings: buildings
         }
@@ -177,7 +177,7 @@ function processFacilityBuildingNodes(nodes) {
         }
     }
     
-    executeIfNotCached("facility_buildings", buildings, function () {
+    executeIfNotCachedForPlanet("facility_buildings", buildings, function () {
         var data = {
             buildings: buildings
         }
@@ -215,7 +215,7 @@ function processDefenceNodes(nodes) {
         }
     }
     
-    executeIfNotCached("defences", defences, function () {
+    executeIfNotCachedForPlanet("defences", defences, function () {
         var data = {
             defences: defences
         }
@@ -253,7 +253,7 @@ function processFleetNodes(nodes) {
         }
     }
     
-    executeIfNotCached("fleet", fleet, function () {
+    executeIfNotCachedForPlanet("fleet", fleet, function () {
         var data = {
             fleet: fleet
         }
@@ -291,7 +291,7 @@ function processShipyardNodes(nodes) {
         }
     }
     
-    executeIfNotCached("shipyard", shipyard, function () {
+    executeIfNotCachedForPlanet("shipyard", shipyard, function () {
         var data = {
             shipyard: shipyard
         }
@@ -383,6 +383,36 @@ function executeIfNotCached(cacheKey, value, callback) {
     }
 }
 
+function executeIfNotCachedForPlanet(cacheKey, value, callback) {
+    var valueString = JSON.stringify(value);
+    var planetCacheKey = getPlanetCacheKey(cacheKey);
+    var fullCacheKey = getFullCacheKey(planetCacheKey);
+    if (getSetting(fullCacheKey, "") !== valueString) {
+        callback();
+        saveSetting(fullCacheKey, valueString);
+        addPlanetCacheKeyToUsedCacheKeys(planetCacheKey);
+    }
+}
+
+function getPlanetCacheKey(cacheKey) {
+    return getMetaValue("ogame-planet-id") + "_" + cacheKey;
+}
+
 function getFullCacheKey(cacheKey) {
     return "cache." + cacheKey;
+}
+
+function addPlanetCacheKeyToUsedCacheKeys(planetCacheKey) {
+    var planetCacheKeys = getSetting("planetCacheKeys", "");
+    if (planetCacheKeys.indexOf(planetCacheKey) === -1) {
+        planetCacheKeys = planetCacheKeys + ";" + planetCacheKey;
+        saveSetting("planetCacheKeys", planetCacheKeys);
+    }
+}
+
+function getUsedPlanetCacheKeys() {
+    var planetCacheKeys = getSetting("planetCacheKeys", "");
+    return planetCacheKeys.split(";").filter(function (value) {
+        return value !== "";
+    });
 }
