@@ -154,8 +154,9 @@ else if (page === "research") {
     processResearchNodes(itemBoxDivs);
 }
 else if (page === "resources") {
-    var itemBoxDivs = document.querySelectorAll("[class^='supply']");
-    processResourceBuildingNodes(itemBoxDivs);
+    var supplyDivs = document.querySelectorAll("[class^='supply']");
+    var itemBoxDivs = document.querySelectorAll(".item_box");
+    processResourceBuildingNodes(supplyDivs, itemBoxDivs);
 }
 else if (page === "station") {
     var itemBoxDivs = document.querySelectorAll(".item_box");

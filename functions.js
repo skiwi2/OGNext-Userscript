@@ -90,12 +90,35 @@ function processResearchNodes(nodes) {
     });
 }
 
-function processResourceBuildingNodes(nodes) {
+function processResourceBuildingNodes(supplyNodes, itemBoxNodes) {
     var buildings = [];
 
-    for (var i = 0; i < nodes.length; i++) {
-        var node = nodes[i];
+    for (var i = 0; i < supplyNodes.length; i++) {
+        var node = supplyNodes[i];
         var detailButtonElement = node.querySelector("[id='details']");
+        if (detailButtonElement !== null) {
+            var buildingId = detailButtonElement.getAttribute("ref");
+            var cloneLevelNode = detailButtonElement.querySelector(".level").cloneNode(true);
+            var children = [].slice.call(cloneLevelNode.children);
+            
+            for (var j = 0; j < children.length; j++) {
+                var child = children[j];
+                if (child.className === "textlabel" || child.className === "undermark") {
+                    cloneLevelNode.removeChild(child);
+                }
+            }
+            var buildingLevel = cloneLevelNode.innerHTML.trim();
+            
+            buildings.push({
+                id: buildingId,
+                level: buildingLevel
+            });
+        }
+    }
+    
+    for (var i = 0; i < itemBoxNodes.length; i++) {
+        var node = itemBoxNodes[i];
+        var detailButtonElement = node.querySelector("[id^='details']");
         if (detailButtonElement !== null) {
             var buildingId = detailButtonElement.getAttribute("ref");
             var cloneLevelNode = detailButtonElement.querySelector(".level").cloneNode(true);
