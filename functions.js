@@ -145,7 +145,7 @@ function processResourceBuildingNodes(supplyNodes, itemBoxNodes) {
         }
         addPlanetData(data);
         postData({
-            endpoint: "resourceBuildings",
+            endpoint: "planetResourceBuildings",
             data: data
         });
     });
@@ -183,7 +183,7 @@ function processFacilityBuildingNodes(nodes) {
         }
         addPlanetData(data);
         postData({
-            endpoint: "facilityBuildings",
+            endpoint: "planetFacilityBuildings",
             data: data
         });
     });
@@ -221,7 +221,7 @@ function processDefenceNodes(nodes) {
         }
         addPlanetData(data);
         postData({
-            endpoint: "defences",
+            endpoint: "planetDefences",
             data: data
         });
     });
@@ -259,7 +259,7 @@ function processFleetNodes(nodes) {
         }
         addPlanetData(data);
         postData({
-            endpoint: "fleet",
+            endpoint: "planetFleet",
             data: data
         });
     });
@@ -297,7 +297,7 @@ function processShipyardNodes(nodes) {
         }
         addPlanetData(data);
         postData({
-            endpoint: "shipyard",
+            endpoint: "planetShipyard",
             data: data
         });
     });
