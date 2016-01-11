@@ -123,11 +123,6 @@ function showOGNextSettings() {
         saveSetting("settings.ognextinstanceurl", oLogInstanceUrlInput.value);
         saveSetting(getFullCacheKey("planets"), "");
         saveSetting(getFullCacheKey("researches"), "");
-        saveSetting(getFullCacheKey("resource_buildings"), "");
-        saveSetting(getFullCacheKey("facility_buildings"), "");
-        saveSetting(getFullCacheKey("defences"), "");
-        saveSetting(getFullCacheKey("fleet"), "");
-        saveSetting(getFullCacheKey("shipyard"), "");
         var planetCacheKeys = getUsedPlanetCacheKeys();
         for (var i = 0; i < planetCacheKeys.length; i++) {
             saveSetting(getFullCacheKey(planetCacheKeys[i]), "");
