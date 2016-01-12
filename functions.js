@@ -28,6 +28,7 @@ function processMessageNodes(nodes) {
 
 function processPlanetNodes(nodes) {
     var planets = [];
+    var moons = [];
     
     for (var i = 0; i < nodes.length; i++) {
         var planetDiv = nodes[i];
@@ -42,6 +43,21 @@ function processPlanetNodes(nodes) {
             solarSystem: planetCoordsList[1],
             position: planetCoordsList[2]
         });
+
+        var moonAnchor = planetDiv.querySelector(".moonlink");
+        if (moonAnchor !== null) {
+            var moonHref = moonAnchor.href;
+            var moonHrefParts = moonHref.split("&cp=");
+            var moonId = moonHrefParts[1];
+            var moonName = "Moon";  //TODO find a way to extract this, currently it is only possible if you are on the associated planet or moon, which is not good enough
+            moons.push({
+                id: moonId,
+                name: moonName,
+                galaxy: planetCoordsList[0],
+                solarSystem: planetCoordsList[1],
+                position: planetCoordsList[2]
+            });
+        }
     }
     
     executeIfNotCached("planets", planets, function () {
@@ -49,6 +65,15 @@ function processPlanetNodes(nodes) {
             endpoint: "planets",
             data: {
                 planets: planets
+            }
+        });
+    });
+
+    executeIfNotCached("moons", moons, function () {
+        postData({
+            endpoint: "moons",
+            data: {
+                moons: moons
             }
         });
     });
@@ -138,17 +163,32 @@ function processResourceBuildingNodes(supplyNodes, itemBoxNodes) {
             });
         }
     }
-    
-    executeIfNotCachedForPlanet("resource_buildings", buildings, function () {
-        var data = {
-            buildings: buildings
-        }
-        addPlanetData(data);
-        postData({
-            endpoint: "planetResourceBuildings",
-            data: data
+
+    var planetType = getPlanetType();
+    if (planetType === "planet") {
+        executeIfNotCachedForPlanet("resource_buildings", buildings, function () {
+            var data = {
+                buildings: buildings
+            };
+            addPlanetData(data);
+            postData({
+                endpoint: "planetResourceBuildings",
+                data: data
+            });
         });
-    });
+    }
+    else if (planetType === "moon") {
+        executeIfNotCachedForMoon("resource_buildings", buildings, function () {
+            var data = {
+                buildings: buildings
+            };
+            addMoonData(data);
+            postData({
+                endpoint: "moonResourceBuildings",
+                data: data
+            });
+        });
+    }
 }
 
 function processFacilityBuildingNodes(nodes) {
@@ -176,17 +216,32 @@ function processFacilityBuildingNodes(nodes) {
             });
         }
     }
-    
-    executeIfNotCachedForPlanet("facility_buildings", buildings, function () {
-        var data = {
-            buildings: buildings
-        }
-        addPlanetData(data);
-        postData({
-            endpoint: "planetFacilityBuildings",
-            data: data
+
+    var planetType = getPlanetType();
+    if (planetType === "planet") {
+        executeIfNotCachedForPlanet("facility_buildings", buildings, function () {
+            var data = {
+                buildings: buildings
+            };
+            addPlanetData(data);
+            postData({
+                endpoint: "planetFacilityBuildings",
+                data: data
+            });
         });
-    });
+    }
+    else if (planetType === "moon") {
+        executeIfNotCachedForMoon("facility_buildings", buildings, function () {
+            var data = {
+                buildings: buildings
+            };
+            addMoonData(data);
+            postData({
+                endpoint: "moonFacilityBuildings",
+                data: data
+            });
+        });
+    }
 }
 
 function processDefenceNodes(nodes) {
@@ -214,17 +269,32 @@ function processDefenceNodes(nodes) {
             });
         }
     }
-    
-    executeIfNotCachedForPlanet("defences", defences, function () {
-        var data = {
-            defences: defences
-        }
-        addPlanetData(data);
-        postData({
-            endpoint: "planetDefences",
-            data: data
+
+    var planetType = getPlanetType();
+    if (planetType === "planet") {
+        executeIfNotCachedForPlanet("defences", defences, function () {
+            var data = {
+                defences: defences
+            };
+            addPlanetData(data);
+            postData({
+                endpoint: "planetDefences",
+                data: data
+            });
         });
-    });
+    }
+    else if (planetType === "moon") {
+        executeIfNotCachedForMoon("defences", defences, function () {
+            var data = {
+                defences: defences
+            };
+            addMoonData(data);
+            postData({
+                endpoint: "moonDefences",
+                data: data
+            });
+        });
+    }
 }
 
 function processFleetNodes(nodes) {
@@ -252,17 +322,32 @@ function processFleetNodes(nodes) {
             });
         }
     }
-    
-    executeIfNotCachedForPlanet("fleet", fleet, function () {
-        var data = {
-            fleet: fleet
-        }
-        addPlanetData(data);
-        postData({
-            endpoint: "planetFleet",
-            data: data
+
+    var planetType = getPlanetType();
+    if (planetType === "planet") {
+        executeIfNotCachedForPlanet("fleet", fleet, function () {
+            var data = {
+                fleet: fleet
+            };
+            addPlanetData(data);
+            postData({
+                endpoint: "planetFleet",
+                data: data
+            });
         });
-    });
+    }
+    else if (planetType === "moon") {
+        executeIfNotCachedForMoon("fleet", fleet, function () {
+            var data = {
+                fleet: fleet
+            };
+            addMoonData(data);
+            postData({
+                endpoint: "moonFleet",
+                data: data
+            });
+        });
+    }
 }
 
 function processShipyardNodes(nodes) {
@@ -290,17 +375,32 @@ function processShipyardNodes(nodes) {
             });
         }
     }
-    
-    executeIfNotCachedForPlanet("shipyard", shipyard, function () {
-        var data = {
-            shipyard: shipyard
-        }
-        addPlanetData(data);
-        postData({
-            endpoint: "planetShipyard",
-            data: data
+
+    var planetType = getPlanetType();
+    if (planetType === "planet") {
+        executeIfNotCachedForPlanet("shipyard", shipyard, function () {
+            var data = {
+                shipyard: shipyard
+            };
+            addPlanetData(data);
+            postData({
+                endpoint: "planetShipyard",
+                data: data
+            });
         });
-    });
+    }
+    else if (planetType === "moon") {
+        executeIfNotCachedForMoon("shipyard", shipyard, function () {
+            var data = {
+                shipyard: shipyard
+            };
+            addMoonData(data);
+            postData({
+                endpoint: "moonShipyard",
+                data: data
+            });
+        });
+    }
 }
 
 function postData(object) {
@@ -336,6 +436,15 @@ function addPlanetData(data) {
     data.planetGalaxy = coordinate[0];
     data.planetSolarSystem = coordinate[1];
     data.planetPosition = coordinate[2];
+}
+
+function addMoonData(data) {
+    data.moonId = getMetaValue("ogame-planet-id");
+    data.moonName = getMetaValue("ogame-planet-name");
+    var coordinate = getMetaValue("ogame-planet-coordinates").split(":");
+    data.moonGalaxy = coordinate[0];
+    data.moonSolarSystem = coordinate[1];
+    data.moonPosition = coordinate[2];
 }
 
 /**
@@ -394,7 +503,22 @@ function executeIfNotCachedForPlanet(cacheKey, value, callback) {
     }
 }
 
+function executeIfNotCachedForMoon(cacheKey, value, callback) {
+    var valueString = JSON.stringify(value);
+    var moonCacheKey = getMoonCacheKey(cacheKey);
+    var fullCacheKey = getFullCacheKey(moonCacheKey);
+    if (getSetting(fullCacheKey, "") !== valueString) {
+        callback();
+        saveSetting(fullCacheKey, valueString);
+        addMoonCacheKeyToUsedCacheKeys(moonCacheKey);
+    }
+}
+
 function getPlanetCacheKey(cacheKey) {
+    return getMetaValue("ogame-planet-id") + "_" + cacheKey;
+}
+
+function getMoonCacheKey(cacheKey) {
     return getMetaValue("ogame-planet-id") + "_" + cacheKey;
 }
 
@@ -415,4 +539,23 @@ function getUsedPlanetCacheKeys() {
     return planetCacheKeys.split(";").filter(function (value) {
         return value !== "";
     });
+}
+
+function addMoonCacheKeyToUsedCacheKeys(moonCacheKey) {
+    var moonCacheKeys = getSetting("moonCacheKeys", "");
+    if (moonCacheKeys.indexOf(moonCacheKey) === -1) {
+        moonCacheKeys = moonCacheKeys + ";" + moonCacheKey;
+        saveSetting("moonCacheKeys", moonCacheKeys);
+    }
+}
+
+function getUsedMoonCacheKeys() {
+    var moonCacheKeys = getSetting("moonCacheKeys", "");
+    return moonCacheKeys.split(";").filter(function (value) {
+        return value !== "";
+    });
+}
+
+function getPlanetType() {
+    return getMetaValue("ogame-planet-type");
 }

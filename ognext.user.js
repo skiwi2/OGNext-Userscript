@@ -122,12 +122,18 @@ function showOGNextSettings() {
     oLogSaveSettingsInput.addEventListener("click", function() {
         saveSetting("settings.ognextinstanceurl", oLogInstanceUrlInput.value);
         saveSetting(getFullCacheKey("planets"), "");
+        saveSetting(getFullCacheKey("moons"), "");
         saveSetting(getFullCacheKey("researches"), "");
         var planetCacheKeys = getUsedPlanetCacheKeys();
         for (var i = 0; i < planetCacheKeys.length; i++) {
             saveSetting(getFullCacheKey(planetCacheKeys[i]), "");
         }
         saveSetting("planetCacheKeys", "");
+        var moonCacheKeys = getUsedMoonCacheKeys();
+        for (var i = 0; i < moonCacheKeys.length; i++) {
+            saveSetting(getFullCacheKey(moonCacheKeys[i]), "");
+        }
+        saveSetting("moonCacheKeys", "");
         showSuccessMessage("Settings have been saved.");
     });
 }
