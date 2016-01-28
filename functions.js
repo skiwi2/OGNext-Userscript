@@ -96,7 +96,7 @@ function processResearchNodes(nodes) {
                     cloneLevelNode.removeChild(child);
                 }
             }
-            var researchLevel = cloneLevelNode.innerHTML.trim();
+            var researchLevel = sanitizeNumbers(cloneLevelNode.innerHTML);
             
             researches.push({
                 id: researchId,
@@ -132,7 +132,7 @@ function processResourceBuildingNodes(supplyNodes, itemBoxNodes) {
                     cloneLevelNode.removeChild(child);
                 }
             }
-            var buildingLevel = cloneLevelNode.innerHTML.trim();
+            var buildingLevel = sanitizeNumbers(cloneLevelNode.innerHTML);
             
             buildings.push({
                 id: buildingId,
@@ -155,7 +155,7 @@ function processResourceBuildingNodes(supplyNodes, itemBoxNodes) {
                     cloneLevelNode.removeChild(child);
                 }
             }
-            var buildingLevel = cloneLevelNode.innerHTML.trim();
+            var buildingLevel = sanitizeNumbers(cloneLevelNode.innerHTML);
             
             buildings.push({
                 id: buildingId,
@@ -208,7 +208,7 @@ function processFacilityBuildingNodes(nodes) {
                     cloneLevelNode.removeChild(child);
                 }
             }
-            var buildingLevel = cloneLevelNode.innerHTML.trim();
+            var buildingLevel = sanitizeNumbers(cloneLevelNode.innerHTML);
             
             buildings.push({
                 id: buildingId,
@@ -261,7 +261,7 @@ function processDefenceNodes(nodes) {
                     cloneLevelNode.removeChild(child);
                 }
             }
-            var defenceAmount = cloneLevelNode.innerHTML.trim();
+            var defenceAmount = sanitizeNumbers(cloneLevelNode.innerHTML);
             
             defences.push({
                 id: defenceId,
@@ -314,7 +314,7 @@ function processFleetNodes(nodes) {
                     cloneLevelNode.removeChild(child);
                 }
             }
-            var fleetAmount = cloneLevelNode.innerHTML.trim();
+            var fleetAmount = sanitizeNumbers(cloneLevelNode.innerHTML);
             
             fleet.push({
                 id: fleetId,
@@ -367,7 +367,7 @@ function processShipyardNodes(nodes) {
                     cloneLevelNode.removeChild(child);
                 }
             }
-            var fleetAmount = cloneLevelNode.innerHTML.trim();
+            var fleetAmount = sanitizeNumbers(cloneLevelNode.innerHTML);
             
             shipyard.push({
                 id: fleetId,
@@ -558,4 +558,8 @@ function getUsedMoonCacheKeys() {
 
 function getPlanetType() {
     return getMetaValue("ogame-planet-type");
+}
+
+function sanitizeNumbers(text) {
+    return text.trim().replace(/\D/g, "");
 }
