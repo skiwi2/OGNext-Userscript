@@ -6,6 +6,7 @@
 // @updateURL           https://github.com/skiwi2/OGNext-Userscript/raw/master/ognext.user.js
 // @version             0.3pre
 // @include             http://s*-*.ogame.gameforge.com/game/*
+// @include             https://s*-*.ogame.gameforge.com/game/*
 // @grant               GM_xmlhttpRequest
 // @grant               GM_getValue
 // @grant               GM_setValue
