@@ -4,7 +4,7 @@
 // @description         OLog Userscript
 // @downloadURL         https://github.com/skiwi2/OLog-Userscript/raw/master/olog.user.js
 // @updateURL           https://github.com/skiwi2/OLog-Userscript/raw/master/olog.user.js
-// @version             0.2
+// @version             0.2.1
 // @include             http://s*-*.ogame.gameforge.com/game/*
 // @include             https://s*-*.ogame.gameforge.com/game/*
 // @grant               GM_xmlhttpRequest
